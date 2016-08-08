@@ -1,0 +1,62 @@
+{
+    "name": "top",
+    "env" : {
+        "myId" : "process.env.MY_ID||foo-device1",
+        "appProtocol" : "process.env.APP_PROTOCOL||https",
+        "appPublisher" : "process.env.APP_PUBLISHER||root",
+        "appLocalName" : "process.env.APP_LOCAL_NAME||hellodynamic",
+        "appSuffix" : "process.env.APP_SUFFIX||cafjs.com",
+        "interval": "process.env.INTERVAL||1000",
+        "sampleRate" : "process.env.SAMPLE_RATE||5"
+    },
+    "components": [
+        {
+            "name": "iot",
+            "components": [
+                {
+                    "name": "log",
+                    "env" : {
+                        "logLevel" : "DEBUG"
+                    }
+                },
+                {
+                    "name": "cron"
+                },
+                {
+                    "module": "caf_rpi_zx#plug_iot",
+                    "name": "zx",
+                    "description": "Access to ZX infrared sensor for this device.",
+                    "env" : {
+                        "maxRetries" : "$._.env.maxRetries",
+                        "retryDelay" : "$._.env.retryDelay",
+                        "deviceZX" : "process.env.DEVICE_ZX||/dev/i2c-1",
+                        "deviceAddress" : "process.env.DEVICE_ADDRESS||0x10",
+                        "allowMock" : "process.env.ALLOW_MOCK||true",
+                        "deviceSamplingInterval": "process.env.DEVICE_SAMPLING_INTERVAL||20"
+                    },
+                    "components" : [
+                        {
+                            "module": "caf_rpi_zx#proxy_iot",
+                            "name": "proxy",
+                            "description": "Proxy to access ZX sensor",
+                            "env" : {
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "handler",
+                    "components" : [
+                        {
+                            "name": "props",
+                            "description": "Exposes read-only properties to app methods",
+                            "env" : {
+                                "sampleRate" : "$._.env.sampleRate"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
