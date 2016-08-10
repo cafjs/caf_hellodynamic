@@ -37,6 +37,7 @@ var newAppStore = function() {
         switch(action.actionType) {
         case AppConstants.APP_UPDATE:
             mixinState(action.state);
+            state.code = state.code || state.filter;
             emitChange();
             break;
         case AppConstants.APP_NOTIFICATION:

@@ -68,7 +68,7 @@ var AppActions = {
     }
 };
 
-['getState'].forEach(function(x) {
+['getState', 'changeFilter'].forEach(function(x) {
      AppActions[x] = function() {
             var args = Array.prototype.slice.call(arguments);
             args.push(function(err, data) {

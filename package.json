@@ -14,6 +14,8 @@
       "react-addons-transition-group": "^0.14.0",
       "react-bootstrap" : "^0.28.1",
       "recharts" : "^0.13.0",
+      "react-code-mirror": "^3.0.6",
+      "codemirror" : "^5.17.0",
       "flux": "^2.0.2",
       "keymirror": "^0.1.0",
       "eventemitter2" : "^0.4.14"

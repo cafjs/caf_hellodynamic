@@ -47,7 +47,8 @@
                 {
                     "name": "props",
                     "env" : {
-                        "maxSamples": "process.env.MAX_SAMPLES||50"
+                        "maxSamples": "process.env.MAX_SAMPLES||50",
+                        "maxDetections": "process.env.MAX_DETECTIONS||5"
                     }
                 }
             ]

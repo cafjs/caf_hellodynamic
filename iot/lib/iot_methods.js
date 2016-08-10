@@ -17,6 +17,10 @@ limitations under the License.
 "use strict";
 var caf_iot = require('caf_iot');
 var caf_comp = caf_iot.caf_components;
+var caf_sharing = caf_iot.caf_sharing;
+var ReliableChannel = caf_sharing.ReliableChannel;
+var DETECTIONS_CHANNEL_NAME = 'detectionsChannel';
+
 var myUtils = caf_comp.myUtils;
 
 var sample = function(data, rate) {
@@ -39,32 +43,33 @@ exports.methods = {
         this.$.zx.registerHandler('newData__noSync');
         this.state.data = {nextIndex: 0, values: []};
         this.state.acc = {};
+        this.state.detections = [];
         cb(null);
     },
 
     '__iot_loop__' : function(cb) {
         this.$.log && this.$.log.debug('Time offset ' + this.$.cloud.cli
                                        .getEstimatedTimeOffset());
-
-        this.toCloud.set('detect', myUtils.deepClone(this.state.acc));
+        this.$.log && this.$.log.debug(' Detections:' +
+                                       JSON.stringify(this.state.detections));
+        ReliableChannel.send(this.toCloud, DETECTIONS_CHANNEL_NAME,
+                             this.state.detections);
+        this.state.detections = [];
         this.toCloud.set('data', sample(this.state.data,
                                         this.$.props.sampleRate));
-
         this.state.data = {
             nextIndex: this.state.data.nextIndex,
             values: []
         };
-
         cb(null);
     },
 
     // Changes toCloud are ignored because zx handlers do not sync with cloud
     'newData__noSync' : function(dataPoint, cb) {
-        if (this.toCloud.has('filter')) {
-            var acc = this.toCloud.applyMethod('filter', [dataPoint,
-                                                          this.state.acc]);
-            if (acc) {
-                this.state.acc = acc;
+        if (this.fromCloud.has('filter')) {
+            if (this.fromCloud.applyMethod('filter',
+                                         [dataPoint, this.state.acc])) {
+                this.state.detections.push(dataPoint.index);
             }
         }
 
