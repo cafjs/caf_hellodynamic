@@ -68,7 +68,7 @@ var MyApp = {
                             cE(rB.Row, null,
                                cE(rB.Col, {sm:6, xs:12},
                                   cE(CodeEditor, {
-                                      code: this.state.code
+                                      code: this.state.code || this.state.filter
                                   })
                                  ),
                                cE(rB.Col, {sm:6, xs:12},
