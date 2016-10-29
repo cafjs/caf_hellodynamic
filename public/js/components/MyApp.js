@@ -39,7 +39,7 @@ var MyApp = {
                       error: this.state.error
                   }),
                   cE(rB.Panel, {
-                      header: cE(rB.Grid, null,
+                      header: cE(rB.Grid, {fluid: true},
                                  cE(rB.Row, null,
                                     cE(rB.Col, {sm:1, xs:1},
                                        cE(AppStatus, {
@@ -64,7 +64,7 @@ var MyApp = {
                             data: this.state.data.values
                         })),
                      cE(rB.Panel, {header: "Device Local Filtering"},
-                        cE(rB.Grid, null,
+                        cE(rB.Grid, {fluid: true},
                             cE(rB.Row, null,
                                cE(rB.Col, {sm:6, xs:12},
                                   cE(CodeEditor, {

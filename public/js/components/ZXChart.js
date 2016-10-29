@@ -10,7 +10,7 @@ var TICKS_INTERVAL = 10; // need to set this to match server-side rendering
 
 var ZXChart = {
     render : function() {
-        return cE(rB.Grid, null,
+        return cE(rB.Grid, {fluid: true},
                   cE(rB.Row, null,
                      cE(rB.Col, {sm:6, xs:12},
                         cE("div", null,

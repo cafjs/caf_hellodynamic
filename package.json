@@ -1,7 +1,7 @@
 {
   "name": "caf_hellodynamic",
   "description": "Cloud Assistants with React basic example",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "author": "Antonio Lain <antlai@cafjs.com>",
   "dependencies": {
       "caf_react" :"^0.2.0",
