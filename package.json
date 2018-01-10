@@ -1,7 +1,7 @@
 {
   "name": "caf_hellodynamic",
   "description": "Cloud Assistants with React basic example",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "author": "Antonio Lain <antlai@cafjs.com>",
   "dependencies": {
       "caf_react" :"^0.2.0",
@@ -13,7 +13,7 @@
       "react-dom" : "^0.14.0",
       "react-addons-transition-group": "^0.14.0",
       "react-bootstrap" : "^0.28.1",
-      "recharts" : "^0.13.0",
+      "recharts" : "^0.14.2",
       "flux": "^2.0.2",
       "keymirror": "^0.1.0",
       "eventemitter2" : "^0.4.14"
