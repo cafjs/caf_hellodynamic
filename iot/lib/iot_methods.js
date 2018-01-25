@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-"use strict";
+'use strict';
 var caf_iot = require('caf_iot');
 var caf_comp = caf_iot.caf_components;
 var caf_sharing = caf_iot.caf_sharing;
@@ -32,14 +32,14 @@ var sample = function(data, rate) {
         return newX;
     });
 
-    return  ((newValues.length > 0) ? {nextIndex:
+    return ((newValues.length > 0) ? {nextIndex:
                                        newValues[newValues.length -1].index + 1,
-                                       values: newValues} :
+        values: newValues} :
              {nextIndex: Math.floor(data.nextIndex -1) + 1, values: []});
 };
 
 exports.methods = {
-    '__iot_setup__' : function(cb) {
+    '__iot_setup__': function(cb) {
         this.$.zx.registerHandler('newData__noSync');
         this.state.data = {nextIndex: 0, values: []};
         this.state.acc = {};
@@ -47,7 +47,7 @@ exports.methods = {
         cb(null);
     },
 
-    '__iot_loop__' : function(cb) {
+    '__iot_loop__': function(cb) {
         this.$.log && this.$.log.debug('Time offset ' + this.$.cloud.cli
                                        .getEstimatedTimeOffset());
         this.$.log && this.$.log.debug(' Detections:' +
@@ -65,7 +65,7 @@ exports.methods = {
     },
 
     // Changes toCloud are ignored because zx handlers do not sync with cloud
-    'newData__noSync' : function(dataPoint, cb) {
+    'newData__noSync': function(dataPoint, cb) {
         if (this.fromCloud.has('filter')) {
             if (this.fromCloud.applyMethod('filter',
                                          [dataPoint, this.state.acc])) {
