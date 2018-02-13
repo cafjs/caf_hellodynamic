@@ -39,15 +39,15 @@ var sample = function(data, rate) {
 };
 
 exports.methods = {
-    '__iot_setup__': function(cb) {
+    async __iot_setup__() {
         this.$.zx.registerHandler('newData__noSync');
         this.state.data = {nextIndex: 0, values: []};
         this.state.acc = {};
         this.state.detections = [];
-        cb(null);
+        return [];
     },
 
-    '__iot_loop__': function(cb) {
+    async __iot_loop__() {
         this.$.log && this.$.log.debug('Time offset ' + this.$.cloud.cli
                                        .getEstimatedTimeOffset());
         this.$.log && this.$.log.debug(' Detections:' +
@@ -61,11 +61,11 @@ exports.methods = {
             nextIndex: this.state.data.nextIndex,
             values: []
         };
-        cb(null);
+        return [];
     },
 
     // Changes toCloud are ignored because zx handlers do not sync with cloud
-    'newData__noSync': function(dataPoint, cb) {
+    async newData__noSync(dataPoint) {
         if (this.fromCloud.has('filter')) {
             if (this.fromCloud.applyMethod('filter',
                                          [dataPoint, this.state.acc])) {
@@ -76,7 +76,7 @@ exports.methods = {
         this.state.data.values.push(dataPoint);
         this.state.data.nextIndex = dataPoint.index + 1;
 
-        cb(null);
+        return [];
     }
 };
 

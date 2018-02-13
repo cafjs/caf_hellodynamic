@@ -42,10 +42,10 @@ var wsStatusF =  function(isClosed) {
 };
 
 var AppActions = {
-    initServer: function(initialData) {
+    initServer(initialData) {
         updateF(initialData);
     },
-    init: function(cb) {
+    init(cb) {
         AppSession.hello(AppSession.getCacheKey(),
                          caf_cli.extractTokenFromURL(window.location.href),
                          function(err, data) {
@@ -57,30 +57,28 @@ var AppActions = {
                              cb(err, data);
                          });
     },
-    setLocalState: function(data) {
+    setLocalState(data) {
         updateF(data);
     },
-    resetError: function() {
+    resetError() {
         errorF(null);
     },
-    setError: function(err) {
+    setError(err) {
         errorF(err);
     }
 };
 
 ['getState', 'changeFilter'].forEach(function(x) {
-     AppActions[x] = function() {
-            var args = Array.prototype.slice.call(arguments);
-            args.push(function(err, data) {
-                if (err) {
-                    errorF(err);
-                } else {
-                    updateF(data);
-                }
-            });
-            AppSession[x].apply(AppSession, args);
-        };
-    });
+    AppActions[x] = async function() {
+        var args = Array.prototype.slice.call(arguments);
+        try {
+            var data = await AppSession[x].apply(AppSession, args).getPromise();
+            updateF(data);
+        } catch (err) {
+            errorF(err);
+        }
+    };
+});
 
 
 AppSession.onmessage = function(msg) {
