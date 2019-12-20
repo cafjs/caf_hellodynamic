@@ -5,7 +5,7 @@
 # TO_BUILD:        cafjs mkImage . gcr.io/cafjs-k8/root-hellodynamic
 # TO_RUN:         cafjs run --appImage gcr.io/cafjs-k8/root-hellodynamic hellodynamic
 
-FROM node:10
+FROM node:12
 
 EXPOSE 3000
 
