@@ -1,11 +1,11 @@
 {
   "name": "caf_iot_hellodynamic",
   "description": "Cloud Assistants IoT dynamic example (Device)",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Antonio Lain <antlai@cafjs.com>",
   "dependencies": {
-      "caf_iot" : "^0.3.0",
-      "caf_rpi_zx" : "^0.3.0"
+      "caf_iot" : "^0.4.0",
+      "caf_rpi_zx" : "^0.4.0"
    },
     "scripts": {
        "start" : "node ./index.js",
